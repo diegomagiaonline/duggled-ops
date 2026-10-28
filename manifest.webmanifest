@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "Duggled Ops — Panel Comercial",
+  "short_name": "Duggled Ops",
+  "description": "Panel de operaciones y prospección comercial de Duggled",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png?v=3",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
