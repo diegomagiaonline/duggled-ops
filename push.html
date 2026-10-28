@@ -1,0 +1,25 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101015"><link rel="manifest" href="/manifest.webmanifest"><link rel="icon" type="image/svg+xml" href="/icon-192.svg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2"><title>Notificaciones · Duggled Ops</title><style>body{background:#0e1015;color:#f8f7f5;font:16px system-ui,-apple-system,sans-serif;min-height:100dvh;display:grid;place-items:center;margin:0;padding:16px;box-sizing:border-box}main{max-width:440px;width:100%;background:#191b21;border:1px solid #35363f;border-radius:22px;padding:26px;box-sizing:border-box}h1{font-size:26px;letter-spacing:-.9px}p{color:#b8bac3;line-height:1.5}label{display:block;margin:16px 0}input[type=password]{width:100%;box-sizing:border-box;padding:14px;background:#282b33;color:white;border:1px solid #4a4c55;border-radius:10px;font:inherit}button{background:#ff6b29;color:#121212;border:0;border-radius:10px;padding:15px;font-size:15px;font-weight:750;width:100%;cursor:pointer}button:disabled{opacity:.55}a{color:#ff8b5a}#info{font-size:14px}</style></head><body><main><a href="/">← Volver al panel</a><h1>Notificaciones push</h1><p>Activá avisos de Duggled Ops en este dispositivo. En iPhone primero instalá la web desde Safari → Compartir → Agregar a pantalla de inicio, y abrí la app desde el icono.</p><label><input id="new" type="checkbox" checked> Nuevos prospectos</label><label><input id="status" type="checkbox" checked> Cambios de estado</label><label><input id="priority" type="checkbox"> Prospectos prioritarios (90+)</label><button id="activate">Activar notificaciones en este equipo</button><p id="info" role="status"></p></main><script>
+const $=id=>document.getElementById(id);
+function b64(s){let x=atob((s+'='.repeat((4-s.length%4)%4)).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(x,c=>c.charCodeAt(0))}
+$('activate').onclick=async()=>{
+ const btn=$('activate');
+ if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)){$('info').textContent='Navegador sin soporte para Web Push.';return}
+ if(/iPhone|iPad|iPod/.test(navigator.userAgent)&&!navigator.standalone&&!matchMedia('(display-mode: standalone)').matches){$('info').textContent='Abrí Duggled Ops desde el icono de pantalla de inicio para activar push.';return}
+ btn.disabled=true;
+ try{
+  const permission=await Notification.requestPermission();
+  if(permission!=='granted')throw Error('Permiso de notificaciones denegado');
+  const response=await fetch('/api/push?action=config',{cache:'no-store'}),cfg=await response.json();
+  if(!response.ok)throw Error(cfg.error||'Servicio no configurado');
+  const reg=await navigator.serviceWorker.ready;
+  let sub=await reg.pushManager.getSubscription();
+  if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(cfg.publicKey)});
+  const req=await fetch('/api/push?action=register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription:sub.toJSON(),preferences:{new:$('new').checked,status:$('status').checked,priority:$('priority').checked}})});
+  const result=await req.json();
+  if(!req.ok)throw Error(result.error||'No se pudo registrar este equipo');
+  $('info').textContent='Dispositivo registrado. Vas a recibir alertas con la app cerrada.';
+ }catch(e){$('info').textContent='Error: '+e.message}
+ finally{btn.disabled=false}
+};
+if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(console.error);
+</script></body></html>
