@@ -308,19 +308,11 @@
       @media(min-width:1101px) and (max-width:1460px){.table tbody{grid-template-columns:repeat(2,minmax(0,1fr))}}
       @media(min-width:1101px) and (max-width:1240px){.table tbody{grid-template-columns:minmax(0,1fr)}}
 
-      .wa-tracker{border:1px solid #34312d;border-radius:12px;background:#171716;padding:14px;margin:14px 0;color:#f6f1e8}
-      .wa-heading{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px}.wa-heading i{color:#70d9a0}
-      .wa-state{color:#bdb5aa;font-size:12px;line-height:1.45;margin:9px 0}.wa-messages{max-height:260px;overflow:auto;display:grid;gap:6px;margin:10px 0}
-      .wa-message{font-size:12px;line-height:1.4;padding:9px 11px;border-radius:9px;background:#252421;white-space:pre-wrap;overflow-wrap:anywhere;max-width:90%}.wa-message.out{justify-self:end;background:#283b32}.wa-message.in{justify-self:start}
-      .wa-tracker label{display:block;font-size:11px;color:#c4bcb2;margin:10px 0 6px}.wa-tracker textarea{width:100%;min-height:100px;resize:vertical;color:#f6f1e8;background:#101010;border:1px solid #47413b;border-radius:8px;padding:10px;font:inherit;font-size:13px}
-      .wa-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.wa-actions button{border:1px solid #49433d;border-radius:8px;background:#262420;color:#f6f1e8;padding:9px 11px;cursor:pointer;font:inherit;font-size:12px}.wa-actions button:hover{border-color:var(--orange)}.wa-actions button:disabled{opacity:.5;cursor:not-allowed}.wa-actions .wa-primary{background:#244c37;border-color:#397858}.wa-priority{font-weight:750;color:#78daa4}
-      .wa-connection{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center;margin:9px 0 0;padding:10px 12px;border:1px solid #34312d;border-radius:8px;background:#171716}.wa-connection-title{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:750}.wa-connection-title i{color:#70d9a0;font-size:16px}.wa-connection .wa-state{margin:3px 0 0;font-size:11px}.wa-connection button{border:1px solid #397858;border-radius:7px;background:#244c37;color:#edfff3;padding:9px 12px;font-size:11px;font-weight:750}.wa-connection button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}.wa-connection img{grid-column:1/-1;display:block;max-width:250px;width:100%;padding:8px;background:white;border-radius:8px}.wa-connection img[hidden]{display:none}@media(max-width:620px){.wa-connection{grid-template-columns:1fr}.wa-connection button{justify-self:start}}
 </style>
   </head>
   <body>
     <div class="shell"><main>
       <header class="topbar"><div class="brand"><span class="dot"></span>duggled <small>ops</small></div><div class="sync"><button id="alertPrefs" type="button" title="Probar notificación" aria-label="Probar notificación"><i class="bi bi-bell" aria-hidden="true"></i></button><span id="syncText">Leyendo fuente de datos…</span></div></header>
-      <section class="wa-connection" aria-label="Vinculación de WhatsApp Web"><div><div class="wa-connection-title"><i class="bi bi-whatsapp" aria-hidden="true"></i> WhatsApp Web</div><div id="waPairState" class="wa-state" role="status">Consultando monitor…</div></div><button id="waPair" type="button">Vincular WhatsApp</button><img id="waQr" alt="QR para vincular WhatsApp Web con Duggled Ops" hidden /></section>
       <div id="fallback" class="fallback">No se pudo consultar Google Sheets. Reintentando automáticamente; no se muestran prospectos ficticios.</div>
       <section class="metrics"><button type="button" class="card primary metric-filter is-selected" data-metric-filter="all" aria-pressed="true" title="Mostrar todos los prospectos"><div class="label">Prospectos detectados</div><div class="metric" id="metricTotal">25 <span class="metric-suffix">marcas</span></div><div class="bar"><span id="totalBar" style="width:100%"></span></div><div class="tiny">Radar activo · base actualizada</div></button><button type="button" class="card metric-filter" data-metric-filter="ready" aria-pressed="false"><div class="label">Listos para contactar</div><div class="metric" id="metricReady">3</div><div class="bar"><span id="readyBar" style="width:12%"></span></div><div class="tiny">Con evidencia y ángulo revisado</div></button><button type="button" class="card metric-filter" data-metric-filter="review" aria-pressed="false"><div class="label">Esperando respuesta</div><div class="metric" id="metricDetected">0</div><div class="bar"><span id="detectedBar" style="width:88%"></span></div><div class="tiny">Primer contacto enviado · sin respuesta</div></button><button type="button" class="card metric-filter" data-metric-filter="investigation" aria-pressed="false"><div class="label">En revisión</div><div class="metric" id="metricInvestigation">0</div><div class="bar"><span id="investigationBar" style="width:0%"></span></div><div class="tiny">Pendientes de investigar o validar</div></button><button type="button" class="card metric-filter" data-metric-filter="recontact" aria-pressed="false"><div class="label">Recontactar hoy</div><div class="metric" id="metricRecontact">0</div><div class="bar"><span id="recontactBar" style="width:0%"></span></div><div class="tiny">Seguimientos vencidos y sin respuesta</div></button><button type="button" class="card metric-filter" data-metric-filter="replied" aria-pressed="false"><div class="label">Respuestas</div><div class="metric" id="metricResponses">0</div><div class="bar"><span id="responsesBar" style="width:0%"></span></div><div class="tiny">Se activa al iniciar contacto</div></button></section>
       <section class="grid"><section class="panel"><div class="panel-head"><div class="filters"><div class="channel-filters" role="group" aria-label="Filtrar por canales de contacto"><button type="button" class="channel-filter" data-channel-filter="email" aria-pressed="false" title="Solo prospectos con email"><i class="bi bi-envelope-at" aria-hidden="true"></i></button><button type="button" class="channel-filter" data-channel-filter="instagram" aria-pressed="false" title="Solo prospectos con Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></button><button type="button" class="channel-filter" data-channel-filter="whatsapp" aria-pressed="false" title="Solo prospectos con WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></button><button type="button" class="channel-filter" data-channel-filter="site" aria-pressed="false" title="Solo prospectos con sitio web"><i class="bi bi-globe2" aria-hidden="true"></i></button><button type="button" id="clearChannelFilters" class="channel-filter-clear" title="Limpiar filtros de canales" aria-label="Limpiar filtros de canales" hidden><i class="bi bi-x-circle" aria-hidden="true"></i></button><button type="button" id="readyView" class="ready-view-btn" aria-pressed="false" title="Ver lista de Listos"><i class="bi bi-check2-circle" aria-hidden="true"></i><span>Listos</span><b id="readyViewCount">0</b></button></div></div></div><div id="readySyncWarning" class="ready-sync-warning" role="status" hidden></div><div class="radar-search"><input id="radarSearch" type="search" placeholder="" aria-label="Buscar prospectos por nombre, teléfono, Instagram o email" autocomplete="off" spellcheck="false" /><span id="radarSearchCount" class="radar-search-count" aria-live="polite" hidden></span></div><div class="table-wrap"><table class="table"><thead><tr><th>Negocio</th><th>Señal</th><th>Puntaje</th><th>Servicio</th><th>Estado</th><th></th></tr></thead><tbody id="rows"></tbody></table><p id="readyListNotice" class="ready-list-msg">Todavía no hay prospectos en la lista Listos.</p></div></section><aside class="side"><section class="panel funnel"><h2>Embudo de prospección</h2><small>Estado real de la operación</small><div id="funnel" class="steps"></div></section><section class="panel queue"><h2>Revisión prioritaria</h2><small>Primero los de señal operacional fuerte</small><div id="queue" class="queue-list"></div></section></aside></section>
@@ -338,7 +330,6 @@
           <div class="gmail-controls"><button id="gmailSendReply" type="button">Enviar respuesta</button><button id="gmailOpen" type="button">Abrir hilo en Gmail ↗</button></div>
         </div>
         <div class="mail-editors"><label for="gmailRecipient">Destinatario</label><input id="gmailRecipient" type="email" inputmode="email" autocomplete="off" spellcheck="false" placeholder="correo@negocio.com" /><small id="gmailRecipientHint" aria-live="polite">El email se completa desde la ficha del prospecto.</small></div><div class="mail-format" role="group" aria-label="Formato de envío"><label for="mailFormat">Formato de correo</label><select id="mailFormat" aria-label="Elegir formato de correo"><option value="html">Plantilla diseñada</option><option value="plain">Texto simple · sin HTML</option></select><div class="draft-note" id="mailFormatHelp">Se envía la plantilla visual de Duggled, con diseño y enlaces.</div><a href="#mailEditSubject" id="mailEditJump" class="mail-edit-link">Editar asunto y mensaje ↓</a></div><div class="gmail-controls"><button id="gmailSendInitial" type="button">Enviar plantilla HTML</button><small>Requiere confirmación · El envío y las respuestas se registran en Gmail</small></div><div id="gmailSendDiagnostics" class="gmail-send-diagnostics" role="status" aria-live="polite" hidden></div><div class="contact-activity" id="contactActivity" aria-live="polite" hidden>Sin actividad de Gmail registrada.</div>
-      </section><section class="wa-tracker" id="waTracker" aria-label="Seguimiento por WhatsApp"><div class="wa-heading"><strong><i class="bi bi-whatsapp" aria-hidden="true"></i> Seguimiento WhatsApp</strong><span id="waPriority" class="wa-priority"></span></div><div id="waState" class="wa-state" role="status">Consultando conversación…</div><div id="waMessages" class="wa-messages" role="log" aria-label="Últimos mensajes de WhatsApp"></div><div id="waDraftArea" hidden><label for="waDraft">Borrador para revisar</label><textarea id="waDraft" maxlength="2000"></textarea><div class="wa-actions"><button id="waSuggest" type="button">Generar con IA</button><button id="waSave" type="button">Guardar borrador</button><button id="waApprove" class="wa-primary" type="button">Aprobar y abrir WhatsApp ↗</button></div><small>El mensaje se abre para revisión final; Ops no lo envía automáticamente.</small></div></section><div class="prospect-details" id="prospectDetails"></div><div class="compact-intel"><div class="intel-head"><span>Señales detectadas</span></div><div class="intel-signals" id="detailSignals"></div><div class="intel-head"><span>Ángulo Duggled</span></div><div class="intel-angle" id="detailAngle"></div><textarea id="detailMessage" aria-label="Borrador del mensaje inicial" style="display:none" tabindex="-1" aria-hidden="true"></textarea><div class="intel-head"><span>Si responde con interés</span><button class="copy-mini" data-copy-target="detailReply">Copiar</button></div><div class="intel-message intel-reply" id="detailReply"></div><div class="intel-footnote">Guion sugerido: ajustalo según lo que realmente conteste el negocio.</div></div><div class="detail-label">Correo de contacto · editable</div><div class="mail-editors"><label for="mailEditSubject">Asunto</label><input id="mailEditSubject" maxlength="180" placeholder="Asunto del correo" /><label for="mailEditMessage">Mensaje personalizado</label><textarea id="mailEditMessage" rows="5" placeholder="Escribí el mensaje para este prospecto"></textarea><div class="draft-note">Guardado local automáticamente · La vista previa refleja tus cambios</div><button type="button" id="mailResetDraft">Restablecer propuesta</button></div><div class="mail-subject" id="mailSubject"></div><div class="mail-actions"><button id="mailDesktop">Escritorio</button><button id="mailMobile">Móvil</button><button id="mailCopyHtml">Copiar HTML</button><button id="mailCopySubject">Copiar asunto</button></div><iframe class="mail-frame" id="mailPreview" title="Vista previa de email comercial" sandbox=""></iframe><div class="mail-plain-preview" id="mailPlainPreview" role="region" aria-label="Vista previa del texto simple" hidden></div><div class="detail-label">Evidencia pública</div><a id="detailEvidence" class="evidence" target="_blank" rel="noreferrer">Abrir sitio ↗</a></aside>
     <script>
       const fallbackData = [
         {id:'1',name:'BERRETA',category:'Indumentaria',city:'CABA · Caballito',signalOne:'Pagos directos desactivados: la compra final se coordina por mensaje.',signalTwo:'Stock, talle, pago y envío se confirman manualmente por WhatsApp o Instagram.',score:80,recommendedService:'Automatización',status:'Listo para contactar',angle:'Recuperar compras que hoy se diluyen entre catálogo y coordinación manual.',openingMessage:'Hola, vi que hoy el catálogo está activo pero los pagos directos no están habilitados y la compra termina resolviéndose por mensaje. Tengo una idea corta para ordenar consultas y llevar más gente al cierre sin sumar laburo manual. ¿Te la mando?',evidence:'https://berreta.mitiendanube.com/como-comprar/'},
@@ -565,7 +556,7 @@
         const evidence=safeUrl(p.evidence)||site;
         $('detailEvidence').href=evidence||'#';
         $('detailEvidence').textContent=evidence?'Ver fuente original ↗':'Sin enlace disponible';
-        showMail(p);beginGmailProspect(p);void waRefresh(p);$('drawer').classList.add('show');$('drawer').setAttribute('aria-hidden','false');$('drawerBackdrop').classList.add('show');document.body.classList.add('drawer-open');$('close').focus()
+        showMail(p);beginGmailProspect(p);$('drawer').classList.add('show');$('drawer').setAttribute('aria-hidden','false');$('drawerBackdrop').classList.add('show');document.body.classList.add('drawer-open');$('close').focus()
       }
       document.querySelectorAll('.copy-mini').forEach(btn=>btn.addEventListener('click',async()=>{const el=$(btn.dataset.copyTarget);if(!el)return;try{await navigator.clipboard.writeText('value' in el?el.value:el.textContent);const initial=btn.textContent;btn.textContent='Copiado ✓';setTimeout(()=>btn.textContent=initial,1400)}catch{btn.textContent='No disponible'}}));
 
@@ -676,117 +667,6 @@
 
       // Gmail is connected through server-side OAuth; the ChatGPT Gmail connection is separate.
       let currentProspect=null, selectedGmailThread=null, gmailConnected=false, gmailConfigured=true, gmailChecking=false, soundEnabled=true, gmailPushEnabled=false;
-      let waProspect=null,waPhone='';
-      async function waApi(p,action='',options={}){
-        const query=new URLSearchParams({id:String(p.id),name:String(p.name||''),service:String(p.recommendedService||'')});
-        if(action)query.set('action',action);
-        const response=await fetch('/api/whatsapp?'+query,{cache:'no-store',...options});
-        const data=await response.json().catch(()=>({}));
-        if(!response.ok)throw Error(data.error||'No se pudo consultar WhatsApp');
-        return data;
-      }
-      let waPairPolling=null,waQrValue='',waRenewing=false,waPairExpanded=false;
-      async function refreshWaPair(showQr=false){
-        try{
-          const response=await fetch('/api/whatsapp?action=session',{cache:'no-store'});
-          const data=await response.json().catch(()=>({}));
-          if(!response.ok)throw Error(data.error||'No se pudo consultar el monitor');
-          if(data.status==='connected'){
-            waPairExpanded=false;waRenewing=false;waQrValue='';
-            $('waPairState').textContent='Monitor conectado.';
-            $('waPair').textContent='Ver conexión';
-            $('waQr').hidden=true;$('waQr').removeAttribute('src');
-          }else if(data.status==='pairing'){
-            $('waPairState').textContent='QR escaneado. WhatsApp está sincronizando los chats…';
-            $('waQr').hidden=true;$('waQr').removeAttribute('src');waQrValue='';waRenewing=false;
-            $('waPair').textContent='Ver conexión';
-          }else if(data.status==='qr'){
-            if((showQr||waPairExpanded)&&/^iVBORw0KGgo[A-Za-z0-9+/=]{100,200000}$/.test(data.qr||'')){
-              if(waRenewing&&data.qr===waQrValue){
-                $('waPairState').textContent='Generando un QR nuevo…';
-              }else{
-                waRenewing=false;waQrValue=data.qr;
-                $('waQr').src='data:image/png;base64,'+data.qr;$('waQr').hidden=false;
-                $('waPair').textContent='Renovar QR';
-                $('waPairState').textContent='Escaneá el QR desde WhatsApp > Dispositivos vinculados. Si no lo acepta, tocá Renovar QR.';
-              }
-            }else if(!showQr)$('waPairState').textContent='Listo para vincular desde este tablero.';
-          }else{
-            $('waPairState').textContent='Monitor sin conexión. Se volverá a consultar.';
-            $('waPair').textContent='Vincular WhatsApp';
-            $('waQr').hidden=true;$('waQr').removeAttribute('src');waQrValue='';waRenewing=false;
-          }
-        }catch(e){$('waPairState').textContent=e.message;$('waQr').hidden=true;$('waQr').removeAttribute('src')}
-      }
-      $('waPair').addEventListener('click',async()=>{
-        waPairExpanded=true;
-        if(!$('waQr').hidden&&waQrValue){
-          waRenewing=true;$('waQr').hidden=true;
-          $('waPairState').textContent='Generando un QR nuevo…';
-          $('waPair').disabled=true;
-          try{
-            const response=await fetch('/api/whatsapp?action=refresh',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
-            if(!response.ok)throw Error('No se pudo renovar el QR. Intentá otra vez.');
-          }catch(e){waRenewing=false;$('waPairState').textContent=e.message}
-          finally{$('waPair').disabled=false}
-        }else{
-          $('waPairState').textContent='Consultando monitor…';
-          void refreshWaPair(true);
-        }
-      });
-      void refreshWaPair();
-      waPairPolling=setInterval(()=>void refreshWaPair(waPairExpanded),10000);
-      async function waRefresh(p){
-        waProspect=p;waPhone='';$('waState').textContent='Consultando conversación…';$('waPriority').textContent='';$('waMessages').replaceChildren();$('waDraftArea').hidden=true;
-        try{
-          const data=await waApi(p);
-          if(waProspect!==p)return;
-          if(!data.connected){$('waState').textContent='Todavía no hay mensajes sincronizados para este número. El monitor está intentando leer el historial visible de WhatsApp Web.';return}
-          waPhone=String(data.phone||'');
-          const a=data.analysis||{},names={alta:'Prioridad alta',media:'Prioridad media',baja:'Prioridad baja','no-contactar':'No contactar'};
-          $('waPriority').textContent=names[a.priority]||'';
-          $('waState').textContent=[a.reason,a.offerSent?'Presupuesto/propuesta detectado':'',a.followupDue?'Seguimiento vencido':'',a.awaitingReply?'Espera tu respuesta':''].filter(Boolean).join(' · ');
-          for(const m of (data.messages||[]).slice(-12)){
-            const bubble=document.createElement('div');bubble.className='wa-message '+(m.direction==='out'?'out':'in');bubble.textContent=m.text;$('waMessages').append(bubble);
-          }
-          $('waDraftArea').hidden=a.priority==='no-contactar';
-          $('waDraft').value=data.suggestedDraft||'';
-          $('waApprove').disabled=a.priority==='no-contactar';
-        }catch(e){if(waProspect===p)$('waState').textContent='Monitor no disponible: '+e.message}
-      }
-      // While an open prospect has no WhatsApp history, retry automatically.
-      // Never overwrite an active draft after a conversation has loaded.
-      setInterval(()=>{
-        if($('drawer').getAttribute('aria-hidden')!=='false'||!waProspect||waPhone)return;
-        void waRefresh(waProspect);
-      },30000);
-      $('waSuggest').addEventListener('click',async()=>{
-        if(!waProspect)return;
-        const p=waProspect;$('waSuggest').disabled=true;$('waState').textContent='Generando borrador para tu revisión…';
-        try{const data=await waApi(p,'suggest',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});if(waProspect===p){$('waDraft').value=data.draft;$('waState').textContent='Borrador generado. Revisalo y editá lo que haga falta.'}}
-        catch(e){$('waState').textContent=e.message}
-        finally{$('waSuggest').disabled=false}
-      });
-      async function saveWaDraft(approved){
-        if(!waProspect)return false;
-        const p=waProspect,draft=$('waDraft').value.trim();
-        if(!draft){$('waState').textContent='Escribí un borrador antes de continuar.';return false}
-        try{await waApi(p,'draft',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({draft,approved})});$('waState').textContent=approved?'Aprobado. Completá el envío en WhatsApp.':'Borrador guardado para revisión.';return true}
-        catch(e){$('waState').textContent=e.message;return false}
-      }
-      $('waSave').addEventListener('click',()=>void saveWaDraft(false));
-      $('waApprove').addEventListener('click',async()=>{
-        if(!waProspect)return;
-        const phone=waPhone;
-        if(!/^[0-9]{10,15}$/.test(phone)){$('waState').textContent='El teléfono del prospecto no es válido.';return}
-        if(!confirm('¿Aprobás este texto para abrirlo en WhatsApp? Todavía tendrás que enviarlo allí.'))return;
-        // Open synchronously on the user gesture to avoid popup blockers.
-        const tab=window.open('about:blank','_blank');
-        if(await saveWaDraft(true)){
-          const url='https://wa.me/'+phone+'?text='+encodeURIComponent($('waDraft').value.trim());
-          if(tab){tab.opener=null;tab.location.href=url}else window.location.href=url;
-        }else if(tab)tab.close();
-      });
       const knownReplies=new Set();let replySnapshotInitialized=false;
       function gmailMessage(text){$('gmailNotice').textContent=text;}
       function gmailStatus(text){$('gmailState').textContent=text;}
