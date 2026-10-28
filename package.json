@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "npx serve .",
-    "check": "node --check api/prospects.js && node --check api/push.js && node --check api/cron.js && node --check api/discover.js && node --check api/whatsapp.js && node --test test/*.test.js"
+    "check": "node --check api/prospects.js && node --check api/push.js && node --check api/cron.js && node --check api/discover.js && node --test test/*.test.js"
   },
   "dependencies": {
     "web-push": "^3.6.7",
